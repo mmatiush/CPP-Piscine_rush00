@@ -1,24 +1,26 @@
 #include <iostream>
 #include <ncurses.h>
+#include <unistd.h>
+#include "Ship.hpp"
 
 int	main() {
-	int x = 0;
-	int y = 0;
-
 	initscr();
 	cbreak();
-	// curs_set(0);
-	WINDOW * win = newwin(10, 15, 0, 0);
-	keypad(win, true);
+	curs_set(0);
+
+	WINDOW * win = newwin(WIN_Y_SIZE, WIN_X_SIZE, 0, 0);
+	Ship player(win, WIN_Y_SIZE / 2, X_MIN + 3, '>');
+	wrefresh(win);
 	while (true)
 	{
-		x++;
-		// move(y, x);
-		mvaddch(y, x, 'k');
+		box(win, 0, 0);
+		if (player.getMv() == 'q')
+			break ;
+		player.display();
 		wrefresh(win);
-		nodelay(win, true);
-		timeout(20);
+		// usleep(5000);
 	}
 	endwin();
+	std::cout << "Your score is: " << std::endl; 
 	return (0);
 }

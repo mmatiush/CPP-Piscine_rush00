@@ -7,11 +7,11 @@ SRC_DIR	:= ./src/
 INC_DIR := ./inc/
 
 # Source and object files
-SRC		:= main.cpp
+SRC		:= main.cpp Ship.cpp
 OBJ		:= $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
 # Header files
-INC	:= 
+INC	:= Ship.hpp
 
 # Compiler and flags
 CC		:= clang++
@@ -22,10 +22,10 @@ all: obj_dir $(NAME)
 
 # Link object files into the executable
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) -lncurses $(FLAGS) $(OBJ) -o $(NAME) -I$(INC_DIR)
 
 # Compile object files from source files
-$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(addprefix $(INC_DIR), $(INC))
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
 	$(CC) $(FLAGS) -o $@ -c $< -I$(INC_DIR)
 
 # Create a directory for object files
