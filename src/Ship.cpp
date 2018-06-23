@@ -60,7 +60,6 @@ void Ship::mvRight( void ) {
 
 int Ship::getMv( void ) {
 	int input = wgetch(this->_win);
-
 	switch (input) {
 		case KEY_UP:
 			mvUp();
